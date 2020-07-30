@@ -35,7 +35,7 @@ def assessTable(test_dataset, train_dataset, model, num_predictors, yname):
     r2test, RMSEtest = adjustedMetric(test_dataset, model, num_predictors, yname)
     r2train, RMSEtrain = adjustedMetric(train_dataset, model, num_predictors, yname)
 
-    assessment = pd.DataFrame(index=['R2', 'RMSE'], columns=['Train', 'Test'])
+    assessment = pd.DataFrame(index=['R2', 'RMSE'])
     assessment['Training Dataset'] = [r2train, RMSEtrain]
     assessment['Test Dataset'] = [r2test, RMSEtest]
 
@@ -48,10 +48,10 @@ def prediction(formula, model, dataset):
 
     dataset['Predicted Y'] = model.predict(dataset)
     dataset['Trade'] = [1 if signal>0 else -1 for signal in dataset['Predicted Y']]
-    dataset['Profit From Signal'] = dataset['Trade']*dataset['BTC']
+    dataset['Profit From Signal'] = dataset['Trade']*dataset.iloc[:, 0]
 
     dataset['Cum. Profit From Signal'] = dataset['Profit From Signal'].cumsum()
-    dataset['Cum. Profit From B&H'] = dataset['BTC'].cumsum()
+    dataset['Cum. Profit From B&H'] = dataset.iloc[:, 0].cumsum()
 
     # Plotting the performance of the strategy applied in dataset
     plt.figure(figsize=(6,6))
