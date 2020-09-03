@@ -1,4 +1,4 @@
-# signal-based_trading_kit
+# Signal-Based_Trading_Model
 
 File contains functions scatter_plot(), scatter_prediction(), assessTable(), adjustMetric(), signal_prediction() which determines if the predictor variables listed in the formula for OLS regression is useful in predicting changes in the response price of an asset.
 
